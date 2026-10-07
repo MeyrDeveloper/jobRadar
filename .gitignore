@@ -1,0 +1,26 @@
+# dependencies
+**/node_modules/
+
+# build
+**/dist/
+**/.vite/
+
+# env
+**/.env
+**/.env.local
+
+# logs
+**/*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# testing
+**/coverage/
+
+# MongoDB
+data/
