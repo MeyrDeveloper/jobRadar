@@ -1,10 +1,11 @@
 import { SharedService } from '@app/shared';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
 import { JobsModule } from './jobs/jobs.module';
+import { LoggerMiddleware } from './middleware/logger.middleware';
 import { SearchModule } from './search/search.module';
 
 @Module({
@@ -13,8 +14,6 @@ import { SearchModule } from './search/search.module';
       isGlobal: true,
       envFilePath: ['.env.local', '.env'],
     }),
-    JobsModule,
-    SearchModule,
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -24,8 +23,14 @@ import { SearchModule } from './search/search.module';
         return { uri };
       },
     }),
+    JobsModule,
+    SearchModule,
   ],
   controllers: [ApiController],
   providers: [ApiService, SharedService],
 })
-export class ApiModule {}
+export class ApiModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
