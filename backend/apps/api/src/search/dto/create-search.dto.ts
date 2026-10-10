@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsString } from 'class-validator';
 import { SEARCH_STATUS } from '../../types/search';
 
 export class CreateRequestSearchDto {
@@ -13,6 +13,11 @@ export class CreateResponseSearchDto {
   @IsString()
   searchId: string;
 
-  @IsString()
+  @IsEnum(SEARCH_STATUS)
   status: SEARCH_STATUS;
+}
+
+export class CreateResponseSearchByIdDto extends CreateResponseSearchDto {
+  @IsNumber()
+  jobs: number;
 }

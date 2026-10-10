@@ -27,7 +27,7 @@ export class SearchController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.searchService.findOne(+id);
+    return this.searchService.findOne(id);
   }
 
   @Patch(':id')

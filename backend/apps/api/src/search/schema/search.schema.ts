@@ -3,7 +3,6 @@ import { Document } from 'mongoose';
 import { SEARCH_STATUS } from '../../types/search';
 
 export type SearchDocument = Search & Document;
-
 @Schema()
 export class Search {
   @Prop({ required: true })
